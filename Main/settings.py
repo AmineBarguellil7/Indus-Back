@@ -25,13 +25,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = ['User.backends.CustomModelBackend']
+
 
 # myproject/settings.py
 
 AUTH_USER_MODEL = 'User.CustomUser'
 
 
-REST_FRAMEWORK={'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.AllowAny']}
+REST_FRAMEWORK={'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.AllowAny'], 'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]}
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -54,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'User',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders'
 ]
 
