@@ -25,9 +25,6 @@ def SignUp(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-
 @api_view(['POST'])
 def login(request):
     print(request.data)
