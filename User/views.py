@@ -15,6 +15,23 @@ def getData(request):
               for user in CustomUser.objects.all()]
     return Response(output)
 
+
+
+@api_view(['GET'])
+def get_user_by_id(request, user_id):
+    try:
+        user = CustomUser.objects.get(id=user_id)
+        user_data = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "isSupervisor":user.isSupervisor
+        }
+        return Response(user_data)
+    except CustomUser.DoesNotExist:
+        return Response({"error": "User not found"}, status=404)
+    
+
 @api_view(['POST'])
 def SignUp(request):
     serializer = UserSerializer(data=request.data)
@@ -33,7 +50,6 @@ def login(request):
         password = request.data['password']
 
         user = authenticate(request, email=email, password=password)
-        print(user)
 
         if user:
             refresh = RefreshToken.for_user(user)
