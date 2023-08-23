@@ -6,6 +6,9 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import logout
+from django.contrib.auth import get_user
+from django.http import JsonResponse
+import json
 
 
 
@@ -63,22 +66,42 @@ def login(request):
 
 @api_view(['POST'])
 def Logout(request):
-    try:
-        refresh_token = request.data["refresh_token"]
-        token = RefreshToken(refresh_token)
-        token.blacklist()
-        return Response({"message": "Logout successful!"}, status=status.HTTP_200_OK)
-    except Exception as e:
-        return Response({"message": "Error logging out"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    body_unicode = request.body.decode('utf-8')
+    body_data = json.loads(body_unicode)
+    refresh_token = body_data.get('refresh_token')
+    print(refresh_token)
+
+    if refresh_token:
+        try:
+            token = RefreshToken(refresh_token)
+            print(token)
+            token.blacklist() 
+            return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print("Exception:", e)  # Print the exception
+            return Response({"message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({"message": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-from django.contrib.auth import get_user
-from django.http import JsonResponse
+
+#this method checks if the admin is connected
 @api_view(['GET'])
 def is_admin_connected(request):
     user = get_user(request)
     if user.is_authenticated and (user.is_staff or user.is_superuser):
         return JsonResponse({"status": "Admin is connected"})
     else:
-        return JsonResponse({"status": "No admin is connected"})        
+        return JsonResponse({"status": "No admin is connected"})    
+
+
+#this method checks if a user is connected
+@api_view(['GET'])
+def is_user_connected(request):
+    user = request.user
+    if user.is_authenticated and not (user.is_staff or user.is_superuser):
+        return JsonResponse({"status": "A regular user is connected"})
+    else:
+        return JsonResponse({"status": "No user is connected"})
+
    

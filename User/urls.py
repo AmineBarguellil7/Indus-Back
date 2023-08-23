@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('logout/',Logout,name='logout'),
     path('is-admin-connected/', is_admin_connected, name='is_admin_connected'),
+     path('is-user-connected/', is_user_connected, name='is_user_connected'),
 ]
