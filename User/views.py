@@ -64,27 +64,6 @@ def login(request):
         return Response({"message": "Email and password are required"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-def Logout(request):
-    body_unicode = request.body.decode('utf-8')
-    body_data = json.loads(body_unicode)
-    refresh_token = body_data.get('refresh_token')
-    print(refresh_token)
-
-    if refresh_token:
-        try:
-            token = RefreshToken(refresh_token)
-            print(token)
-            token.blacklist() 
-            return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
-        except Exception as e:
-            print("Exception:", e)  # Print the exception
-            return Response({"message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({"message": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
 #this method checks if the admin is connected
 @api_view(['GET'])
 def is_admin_connected(request):
