@@ -1,0 +1,3 @@
+During my internship at smart for green, I explored a variety of technologies like Docker, Jenkins, SonarQube, and the Django Rest Framework. A highlight was completing a project that combined React, Django, and a PostgreSQL database. Using React Leaflet, I created interactive maps with polygonal shapes to mark supervision areas. The app included an easy-to-use admin interface and a user portal for real-time alerts about issues in specific areas. This experience solidified my tech skills and emphasized the power of innovation in problem-solving.
+
+🚨 𝐘𝐨𝐮 𝐜𝐚𝐧 𝐟𝐢𝐧𝐝 𝐭𝐡𝐞 𝐟𝐫𝐨𝐧𝐭-𝐞𝐧𝐝 𝐜𝐨𝐝𝐞 𝐡𝐞𝐫𝐞 https://github.com/AmineBarguellil7/Indus-Front 𝐚𝐧𝐝 𝐭𝐡𝐞 𝐛𝐚𝐜𝐤-𝐞𝐧𝐝 𝐜𝐨𝐝𝐞 𝐡𝐞𝐫𝐞 https://github.com/AmineBarguellil7/Indus-Back.
